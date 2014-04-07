@@ -1,0 +1,266 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Padhang 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-04-06 11:50+0700\n"
+"PO-Revision-Date: 2014-04-06 11:50+0700\n"
+"Last-Translator: Rizqy Hidayat <rizqy22@gmail.com>\n"
+"Language-Team: Rizqy Hidayat <rizqy22@gmail.com>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-KeywordsList: __;_e;_x\n"
+"X-Poedit-Basepath: ../\n"
+"X-Poedit-Language: English\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: archive.php:27
+#, php-format
+msgid "Author: %s"
+msgstr ""
+
+#: archive.php:30
+#, php-format
+msgid "Day: %s"
+msgstr ""
+
+#: archive.php:33
+#, php-format
+msgid "Month: %s"
+msgstr ""
+
+#: archive.php:33
+msgid "F Y"
+msgstr ""
+
+#: archive.php:36
+#, php-format
+msgid "Year: %s"
+msgstr ""
+
+#: archive.php:36
+msgid "Y"
+msgstr ""
+
+#: archive.php:39
+msgid "Asides"
+msgstr ""
+
+#: archive.php:42
+msgid "Galleries"
+msgstr ""
+
+#: archive.php:45
+msgid "Images"
+msgstr ""
+
+#: archive.php:48
+msgid "Videos"
+msgstr ""
+
+#: archive.php:51
+msgid "Quotes"
+msgstr ""
+
+#: archive.php:54
+msgid "Links"
+msgstr ""
+
+#: archive.php:57
+msgid "Statuses"
+msgstr ""
+
+#: archive.php:60
+msgid "Audios"
+msgstr ""
+
+#: archive.php:63
+msgid "Chats"
+msgstr ""
+
+#: archive.php:66
+msgid "Archives"
+msgstr ""
+
+#: functions.php:33
+msgid "Primary Menu"
+msgstr ""
+
+#: functions.php:34
+msgid "Social Menu"
+msgstr ""
+
+#: functions.php:59
+msgid "Left Widget Area"
+msgstr ""
+
+#: functions.php:68
+msgid "Right Widget Area"
+msgstr ""
+
+#: content-page.php:18
+#: content-single.php:20
+#: content.php:23
+#: content-link.php:16
+msgid "Pages:"
+msgstr ""
+
+#: content-page.php:23
+#: content-single.php:30
+msgid "Edit"
+msgstr ""
+
+#: 404.php:15
+msgid "Oops! That page can&rsquo;t be found."
+msgstr ""
+
+#: 404.php:19
+msgid "It looks like nothing was found at this location. Maybe try one of the links below or a search?"
+msgstr ""
+
+#: content-single.php:27
+msgid ", "
+msgstr ""
+
+#: content.php:20
+#: content-link.php:13
+msgid "Continue reading <span class=\"meta-nav\">&rarr;</span>"
+msgstr ""
+
+#: search.php:16
+#, php-format
+msgid "Search Results for: %s"
+msgstr ""
+
+#: header.php:26
+msgid "Menu"
+msgstr ""
+
+#: header.php:27
+msgid "Skip to content"
+msgstr ""
+
+#: footer.php:27
+msgid "http://wordpress.org/"
+msgstr ""
+
+#: footer.php:27
+#, php-format
+msgid "Proudly powered by %s"
+msgstr ""
+
+#: footer.php:29
+#, php-format
+msgid "Theme: %1$s by %2$s."
+msgstr ""
+
+#: comments.php:46
+msgid "Comment navigation"
+msgstr ""
+
+#: comments.php:47
+msgid "&larr; Older Comments"
+msgstr ""
+
+#: comments.php:48
+msgid "Newer Comments &rarr;"
+msgstr ""
+
+#: comments.php:58
+msgid "Comments are closed."
+msgstr ""
+
+#: content-none.php:13
+msgid "Nothing Found"
+msgstr ""
+
+#: content-none.php:19
+#, php-format
+msgid "Ready to publish your first post? <a href=\"%1$s\">Get started here</a>."
+msgstr ""
+
+#: content-none.php:23
+msgid "Sorry, but nothing matched your search terms. Please try again with some different keywords."
+msgstr ""
+
+#: content-none.php:28
+msgid "It seems we can&rsquo;t find what you&rsquo;re looking for. Perhaps searching can help."
+msgstr ""
+
+#: inc/customizer.php:33
+msgid "Accent Color"
+msgstr ""
+
+#: inc/customizer.php:44
+msgid "Background Transparency"
+msgstr ""
+
+#: inc/customizer.php:51
+msgid "Extras"
+msgstr ""
+
+#: inc/customizer.php:61
+msgid "Footer text"
+msgstr ""
+
+#: inc/template-tags.php:23
+msgid "Posts navigation"
+msgstr ""
+
+#: inc/template-tags.php:27
+msgid "<span class=\"meta-nav\">&larr;</span> Older posts"
+msgstr ""
+
+#: inc/template-tags.php:31
+msgid "Newer posts <span class=\"meta-nav\">&rarr;</span>"
+msgstr ""
+
+#: inc/template-tags.php:56
+msgid "Post navigation"
+msgstr ""
+
+#: inc/template-tags.php:59
+msgid "<span class=\"meta-nav\">&larr;</span> %title"
+msgstr ""
+
+#: inc/template-tags.php:60
+msgid "%title <span class=\"meta-nav\">&rarr;</span>"
+msgstr ""
+
+#: inc/template-tags.php:85
+#, php-format
+msgid "<span class=\"posted-on\">Posted on %1$s</span><span class=\"byline\"> by %2$s</span>"
+msgstr ""
+
+#: inc/extras.php:67
+#, php-format
+msgid "Page %s"
+msgstr ""
+
+#: inc/extras.php:120
+msgid "Pingback:"
+msgstr ""
+
+#: inc/extras.php:120
+msgid "(Edit)"
+msgstr ""
+
+#: inc/extras.php:138
+msgid "Post author"
+msgstr ""
+
+#: inc/extras.php:144
+#, php-format
+msgid "%1$s at %2$s"
+msgstr ""
+
+#: inc/extras.php:154
+msgid "Your comment is awaiting moderation."
+msgstr ""
+
+#: inc/extras.php:163
+msgid "Reply"
+msgstr ""
+

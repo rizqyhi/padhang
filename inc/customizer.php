@@ -48,8 +48,20 @@ function padhang_customize_register( $wp_customize ) {
 	) );
 
 	$wp_customize->add_section( 'padhang_extra_section' , array(
-		'title'      => __( 'Extras', 'padhang' ),
+		'title'      => __( 'Padhang Extras', 'padhang' ),
 		'priority'   => 120,
+	) );
+
+	$wp_customize->add_setting( 'wrapper_width', array(
+		'default' => '96',
+		'sanitize_callback' => 'padhang_wrapper_width_sanitize',
+	) );
+
+	$wp_customize->add_control( 'wrapper_width', array(
+		'label'   	=> __('Wrapper width (%)', 'padhang'),
+		'section' 	=> 'padhang_extra_section',
+		'settings'	=> 'wrapper_width',
+		'type'    	=> 'text'
 	) );
 
 	$wp_customize->add_setting( 'footer_text', array(
@@ -68,6 +80,7 @@ function padhang_customize_register( $wp_customize ) {
 	$wp_customize->get_setting( 'header_textcolor' )->transport = 'postMessage';
 	$wp_customize->get_setting( 'accent_color' )->transport 	= 'postMessage';
 	$wp_customize->get_setting( 'background_transparency' )->transport 	= 'postMessage';
+	$wp_customize->get_setting( 'wrapper_width' )->transport 	= 'postMessage';
 	$wp_customize->get_setting( 'footer_text' )->transport 		= 'postMessage';
 }
 add_action( 'customize_register', 'padhang_customize_register' );
@@ -94,13 +107,30 @@ function padhang_transparency_sanitize( $input ) {
 }
 
 /**
+ * Sanitize wrapper width value.
+ * It should be between 0-100, otherwise it return default value (96).
+ */
+function padhang_wrapper_width_sanitize( $input ) {
+	$width = absint( $input );
+
+	if( ( 0 <= $width ) && ( $width <= 100 ) )
+		return $width;
+
+	return 96;
+}
+
+/**
  * Output the customized style to the front.
  */
 function padhang_customize_style() {
+	$wrapper_width = absint( get_theme_mod( 'wrapper_width', '96' ) );
 	$color = esc_attr( get_theme_mod( 'accent_color', '#65b045' ) );
 	?>
 	<!-- Custom style -->
 	<style type="text/css">
+		.site-header, .site-content, .site-footer {
+			width: <?php echo $wrapper_width; ?>%;
+		}
 		a, .main-navigation ul a:hover, .entry-title a:hover, .widget-title {
 			color: <?php echo $color; ?>;
 		}
@@ -121,8 +151,6 @@ add_action( 'wp_head', 'padhang_customize_style' );
 function padhang_footer_text() {
 	$footer_text = get_theme_mod( 'footer_text' );
 
-	if( $footer_text != '' ) {
-		echo '<p>' . wp_kses_data( $footer_text ) . '</p>';
-	}
+	echo '<p>' . wp_kses_data( $footer_text ) . '</p>';
 }
 add_action( 'padhang_footer', 'padhang_footer_text' );

@@ -41,3 +41,11 @@ Some resources used within this theme:
 - Add footer text option in customizer
 - Add social menu
 ````
+
+##### 1.0.3 - April 18, 2014
+````
+- Fix text footer not live changed on customizer
+- Add wrapper width option
+- Add more social icons
+- Better navigation on small device
+````

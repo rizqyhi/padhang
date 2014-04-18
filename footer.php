@@ -22,7 +22,9 @@
 		?>
 
 		<div class="site-info">
-			<?php do_action( 'padhang_footer' ); ?>
+			<div class="copyright">
+				<?php do_action( 'padhang_footer' ); ?>
+			</div><!--.copyright -->
 			
 			<p><a href="<?php echo esc_url( __( 'http://wordpress.org/', 'padhang' ) ); ?>"><?php printf( __( 'Proudly powered by %s', 'padhang' ), 'WordPress' ); ?></a>
 				<span class="sep">&bull;</span> 

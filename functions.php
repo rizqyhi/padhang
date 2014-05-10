@@ -117,3 +117,8 @@ require get_template_directory() . '/inc/extras.php';
  * Customizer additions.
  */
 require get_template_directory() . '/inc/customizer.php';
+
+/**
+ * Admin page.
+ */
+require get_template_directory() . '/inc/admin-page.php';

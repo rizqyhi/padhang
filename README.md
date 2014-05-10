@@ -47,5 +47,6 @@ Some resources used within this theme:
 - Fix text footer not live changed on customizer
 - Add wrapper width option
 - Add more social icons
+- Add theme page for info, documentations, and changelog
 - Better navigation on small device
 ````

@@ -17,6 +17,37 @@ function padhang_admin_menu(){
 add_action('admin_menu', 'padhang_admin_menu');
 
 /**
+ * Display notice informing the major update for Padhang
+ * at version > 1.0.3
+ */
+function padhang_major_update_notice() {
+	global $pagenow;
+
+	$padhang = wp_get_theme();
+
+	if ( $pagenow == 'themes.php' && isset( $_GET['page'] ) && $_GET['page'] == 'padhang' && version_compare( $padhang->get( 'Version' ), '1.0.3', '>' ) ) {
+		?>
+
+		<div class="update-nag">
+			<h4><?php _e( 'Hey, Padhang just got some major update!', 'padhang' ); ?></h4>
+			<p><?php _e( "In this new version, I've made some (big) changes. Here some of them:", 'padhang' ); ?></p>
+			<ul>
+				<li><?php _e( 'Custom header support is removed and please welcome the new logo and favicon uploader. Try it from customizer.', 'padhang' ); ?></li>
+				<li><?php _e( 'Background is now unstretched by default and freedom to control it from background options. But if you want the old stretched, you can activate it from the customizer.', 'padhang' ); ?></li>
+				<li><?php _e( 'Social menu now works just fine.', 'padhang' ); ?></li>
+				<li><?php _e( 'Some new styles for navigation, form elements, blockquote, etc. Also a brand new mobile menu.', 'padhang' ); ?></li>
+				<li><a href="<?php echo add_query_arg('tab', 'changelog'); ?>"><?php _e( 'See all changes &rarr;', 'padhang' ); ?></a></li>
+			</ul>
+			<p><strong><?php _e( "I say sorry if you just updated Padhang and some of your change broken and have to reconfigure it. But I'm sure you'll love this update too. :)", 'padhang' ); ?></strong></p>
+		</div>
+
+		<?php
+	}
+}
+add_action( 'admin_notices', 'padhang_major_update_notice' );
+
+
+/**
  * Render the admin page
  */
 function padhang_admin_page_render(){
@@ -26,7 +57,7 @@ function padhang_admin_page_render(){
 		<h2>Padhang WordPress Theme</h2>
 		<h2 class="nav-tab-wrapper">
 			<a href="<?php echo add_query_arg('tab', 'description'); ?>" class="nav-tab <?php echo $active_tab == 'description' ? 'nav-tab-active' : ''; ?>"><?php _e('Description', 'padhang'); ?></a>
-			<a href="<?php echo add_query_arg('tab', 'docs'); ?>" class="nav-tab <?php echo $active_tab == 'docs' ? 'nav-tab-active' : ''; ?>"><?php _e('Documentations', 'padhang'); ?></a>
+			<a href="<?php echo add_query_arg('tab', 'faq'); ?>" class="nav-tab <?php echo $active_tab == 'faq' ? 'nav-tab-active' : ''; ?>"><?php _e('F.A.Q', 'padhang'); ?></a>
 			<a href="<?php echo add_query_arg('tab', 'changelog'); ?>" class="nav-tab <?php echo $active_tab == 'changelog' ? 'nav-tab-active' : ''; ?>"><?php _e('Changelog', 'padhang'); ?></a>
 		</h2>
 			
@@ -61,22 +92,41 @@ function padhang_admin_page_render(){
 				<ul>
 				<li><a href="http://genericons.com">Genericons</a>, <i>GPL2</i></li>
 				<li><a href="http://srobbin.com/jquery-plugins/backstretch/">Backstretch</a>, <i>MIT</i></li>
+				<li><a href="http://slicknav.com/">Slicknav</a>, <i>MIT</i></li>
 				<li><a href="http://unsplash.com">Unsplash</a>, <i>CC0</i></li>
 				</ul>
 			</div>
 
-			<?php elseif( $active_tab == 'docs' ) : ?>
+			<?php elseif( $active_tab == 'faq' ) : ?>
 				
 			<div class="section">
-				<h3><?php _e('Customizing', 'padhang'); ?></h3>
-				<p><?php printf( __('Padhang is fully customized via <a href="%1$s">theme customizer</a>, change the colors, background image and transparency, wrapper width, footer text, and others. You can also <a href="%2$s">upload your logo</a> and your <a href="%3$s">custom background image</a>.', 'padhang'), admin_url('customize.php'), admin_url('themes.php?page=custom-header'), admin_url('themes.php?page=custom-background') ); ?></p>
+				<h3><?php _e('How do I customize this theme?', 'padhang'); ?></h3>
+				<p><?php printf( __( 'Padhang is fully customized via theme customizer, change the colors, background image, overlay, wrapper width, footer text, and others. You can also upload your logo and favicon. <a href="%s">Go to theme customizer</a>.', 'padhang' ), admin_url( 'customize.php' ) ); ?></p>
 
 				<h3>Social Links</h3>
-				<p><?php printf( __('To set the social links, go to <a href="%1$s">Appearance &rarr; Menus</a>, create a new menu, and choose <b>Social Menu</b> as the theme location. You can start to add your social links and the icon will automatically rendered based on its domain name.', 'padhang'), admin_url('nav-menus.php')); ?></p>
+				<p><?php printf( __( 'To set the social links, go to <a href="%s">Appearance &rarr; Menus</a>, create a new menu, and choose <b>Social Menu</b> as the theme location. You can start to add your social links and the icon will automatically rendered based on its domain name.', 'padhang' ), admin_url( 'nav-menus.php' ) ); ?></p>
 			</div>
 
 			<?php elseif( $active_tab == 'changelog' ) : ?>
 			<div class="section">
+<h4>1.1.0 - August 17, 2014</h4>
+<pre>
+- New default fonts: Roboto and Roboto Slab
+- New styles for navigation, form elements, blockquote
+- New mobile navigation using slicknav.js
+- New logo and favicon uploader
+- New options to show/hide site title and tagline
+- New options to revert back to old Open Sans font
+- New options to change site title and tagline color
+- New option to make the background image stretched
+- Add support for post format: audio, chat, gallery, status
+- Add support for editor style
+- Background image is now controllable from background options
+- Remove custom header support
+- Fix social menu not showing icons
+- Fix post meta for updated date
+</pre>
+
 <h4>1.0.3 - May 10, 2014</h4>
 <pre>
 - Fix text footer not live changed on customizer
@@ -122,6 +172,11 @@ function padhang_admin_page_render(){
 function padhang_admin_page_style(){
 	?>
 	<style type="text/css">
+		.update-nag ul {
+			margin-left: 15px;
+			font-size: 13px;
+			list-style-type: disc;
+		}
 		#tab_container h3 {
 			padding-left: 0;
 			border-bottom: 1px solid #ddd;
@@ -139,6 +194,7 @@ function padhang_admin_page_style(){
 		#tab_container pre {
 			padding: 10px;
 			background: #f1f1f1;
+			line-height: 1.6
 		}
 		#tab_container .section {
 			padding:10px 20px;

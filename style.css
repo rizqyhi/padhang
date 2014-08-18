@@ -4,7 +4,7 @@ Theme URI: http://blog.hirizh.name/padhang/
 Author: Rizqy Hidayat
 Author URI: http://blog.hirizh.name/
 Description: A minimalist-content-focused theme. Padhang comes with responsive layout, 2 widget areas under the main content, social menu, big background image, custom logo and custom menu. Padhang is a Javanesse word for bright. It featured bright white color with dark background. Easily customized from the theme customizer. Stand out your content.
-Version: 1.0.3
+Version: 1.1.0
 License: GNU General Public License
 License URI: license.txt
 Text Domain: padhang
@@ -136,15 +136,15 @@ input,
 select,
 textarea {
 	color: #667272;
-	font-family: 'Open Sans', sans-serif;
+	font-family: "Roboto", sans-serif;
 	font-size: 16px;
 	font-size: 1.6rem;
 	line-height: 1.6;
 }
 h1, h2, h3, h4, h5, h6 {
 	clear: both;
-	font-family: 'Bitter', serif;
-	font-weight: normal
+	font-family: "Roboto Slab", serif;
+	font-weight: 700;
 }
 h1 {
 	font-size: 3.6rem;
@@ -174,7 +174,10 @@ dfn, cite, em, i {
 	font-style: italic;
 }
 blockquote {
-	margin: 0 1.5em;
+	margin-left: 3em;
+	font-family: "Roboto Slab", serif;
+	font-weight: 300;
+	font-style: italic;
 }
 address {
 	margin: 0 0 1.5em;
@@ -270,7 +273,7 @@ table {
 th {
 	padding: 1rem 0.5rem;
 	color: #252525;
-	font-weight: 700;
+	font-weight: bold;
 	text-transform: uppercase;
 	text-align: left;
 }
@@ -298,32 +301,40 @@ button,
 input[type="button"],
 input[type="reset"],
 input[type="submit"] {
-	border: 1px solid #eee;
-	border-radius: 5px;
-	background: #65b045;
-	color: #fff;
+	border: 1px solid #65b045;
+	border-radius: 3px;
+	background: none;
+	color: #65b045;
 	cursor: pointer;
 	-webkit-appearance: button;
 	font-size: 15px;
 	font-size: 1.5rem;
 	line-height: 1;
 	padding: 1em 1.5em;
+	-webkit-transition: all 0.2s ease-in-out;
+	-moz-transition: all 0.2s ease-in-out;
+	-o-transition: all 0.2s ease-in-out;
+	-ms-transition: all 0.2s ease-in-out;
+	transition: all 0.2s ease-in-out;
 }
 button:hover,
 input[type="button"]:hover,
 input[type="reset"]:hover,
 input[type="submit"]:hover {
-	box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.3);
+	background: #65b045;
+	color: #fff;
 }
 button:focus,
 input[type="button"]:focus,
-input[type="reset"]:focus,
+input[type="reset"]:focus,	
 input[type="submit"]:focus,
 button:active,
 input[type="button"]:active,
 input[type="reset"]:active,
 input[type="submit"]:active {
 	background: #667272;
+	border-color: #667272;
+	color: #fff;
 	outline: none;
 }
 input[type="checkbox"],
@@ -349,19 +360,28 @@ input[type="email"],
 input[type="url"],
 input[type="password"],
 input[type="search"],
-textarea {
+textarea,
+select {
 	padding: .5rem;
+	background: none;
 	border: 1px solid #aaa;
-	border-radius: 5px;
+	border-radius: 3px;
+	-webkit-transition: all 0.2s ease-in-out;
+	-moz-transition: all 0.2s ease-in-out;
+	-o-transition: all 0.2s ease-in-out;
+	-ms-transition: all 0.2s ease-in-out;
+	transition: all 0.2s ease-in-out;
 }
 input[type="text"]:focus,
 input[type="email"]:focus,
 input[type="url"]:focus,
 input[type="password"]:focus,
 input[type="search"]:focus,
-textarea:focus {
+textarea:focus,
+select:focus {
 	color: #252525;
 	border-color: #65b045;
+	outline: none;
 }
 textarea {
 	overflow: auto;
@@ -452,7 +472,9 @@ a:active {
 .site-content:before,
 .site-content:after,
 .site-footer:before,
-.site-footer:after {
+.site-footer:after,
+.entry-content .chat-row:before,
+.entry-content .chat-row:after {
 	content: '';
 	display: table;
 }
@@ -463,7 +485,8 @@ a:active {
 .comment-content:after,
 .site-header:after,
 .site-content:after,
-.site-footer:after {
+.site-footer:after,
+.entry-content .chat-row:after {
 	clear: both;
 }
 
@@ -481,7 +504,7 @@ a:active {
 	position: absolute;
 	width: 100%;
 	height: 100%;
-	z-index: 1;
+	z-index: -1;
 	top: 0;
 	left: 0;
 	background: #252525;
@@ -502,7 +525,7 @@ a:active {
 	padding: 10rem 0;
 }
 .site-title {
-	font-family: 'Open Sans', sans-serif;
+	font-family: "Roboto", sans-serif;
 	font-size: 5.2rem;
 	font-weight: 700;
 	line-height: 1.2;
@@ -517,7 +540,7 @@ a:active {
 	margin: 3rem 0 0;
 	font-size: 2.4rem;
 	text-align: center;
-	color: #f2f2f2;
+	color: #fff;
 }
 .site-logo {
 	display: block;
@@ -553,12 +576,13 @@ a:active {
 	font-size: 1.6rem;
 	color: #fff;
 }
-.main-navigation ul a:hover {
-	color: #65b045;
+.main-navigation ul li:hover > a {
+	background: #65b045;
+	color: #fff;
 }
 
 .main-navigation ul ul {
-	background: #65b045;
+	background: #fff;
 	box-shadow: 0 3px 3px rgba(0, 0, 0, 0.2);
 	display: none;
 	float: left;
@@ -576,11 +600,11 @@ a:active {
 	width: 200px;
 	font-size: 1.4rem;
 	text-transform: none;
-	color: #fff;
+	color: #333;
 }
 .main-navigation ul ul a:hover {
+	background: #65b045;
 	color: #fff;
-	text-decoration: underline
 }
 .main-navigation ul li:hover > ul {
 	display: block;
@@ -602,41 +626,6 @@ a:active {
 	-webkit-font-smoothing: antialiased;
 	font: normal 14px/1 'Genericons';
 	vertical-align: middle;
-}
-
-/* Small menu */
-.menu-toggle {
-	cursor: pointer;
-	display: none;
-	border-radius: 3px;
-	border: 1px solid #fff;
-	color: #fff;
-	font-size: 1.6rem;
-}
-.menu-toggle:before {
-	content: '\f419';
-	display: inline-block;
-	margin-right: 5px;
-	-webkit-font-smoothing: antialiased;
-	font: normal 1.6rem/1 'Genericons';
-	vertical-align: middle;
-}
-
-@media screen and (max-width: 600px) {
-	.menu-toggle,
-	.main-navigation.toggled .nav-menu {
-		display: block;
-		text-align: center;
-	}
-
-	.main-navigation ul {
-		display: none;
-	}
-
-	.main-navigation.toggled .nav-menu li {
-		display: block;
-		border-bottom: 1px solid rgba(255,255,255,0.2);
-	}
 }
 
 /*--------------------------------------------------------------
@@ -667,7 +656,7 @@ a:active {
 	display: inline-block;
 	padding: 1rem;
 	border: 1px solid #eee;
-	border-radius: 5px;
+	border-radius: 3px;
 }
 
 .comment-navigation a:hover,
@@ -744,6 +733,9 @@ a:active {
 	font-size: 1.4rem;
 	font-style: italic;
 }
+.singular .entry-meta {
+	margin-bottom: 1rem;
+}
 .entry-meta a {
 	color: #aaa;
 }
@@ -758,13 +750,12 @@ a:active {
 .featured-image img {
 	display: block;
 }
-.hentry:hover .featured-image {
+.entry:hover .featured-image {
 	opacity: 1;
 }
 .page-content,
 .entry-content,
 .entry-summary {
-	margin: 1rem 0 0;
 	line-height: 1.8;
 	overflow: hidden;
 	text-overflow: ellipsis;
@@ -815,11 +806,15 @@ a:active {
 /*--------------------------------------------------------------
 4.2 Post format
 --------------------------------------------------------------*/
-.format-link .entry-title:before,
+.format-link .entry-title a:before,
 .format-video .entry-title:before,
 .format-audio .entry-title:before,
 .format-image .entry-title:before,
-.format-gallery .entry-title:before {
+.format-gallery .entry-title:before,
+.format-aside .entry-title:before,
+.format-status .entry-title:before,
+.format-quote .entry-content:before,
+.format-chat .entry-title:before {
 	display: inline-block;
 	margin-right: 1.5rem;
 	padding: 0.5rem;
@@ -830,8 +825,8 @@ a:active {
 	font: normal 2rem/1 'Genericons';
 	vertical-align: middle;
 }
-.format-link .entry-title:before {
-	content: '\f442';
+.format-link .entry-title a:before {
+	content: '\f107';
 }
 .format-video .entry-title:before {
 	content: '\f104';
@@ -845,9 +840,54 @@ a:active {
 .format-gallery .entry-title:before {
 	content: '\f103';
 }
-.format-aside .entry-title,
-.format-quote .entry-title {
-	display: none;
+.format-aside .entry-title:before {
+	content: '\f101';
+}
+.format-status .entry-title:before {
+	content: '\f105';
+}
+.format-quote .entry-content:before {
+	content: '\f106';
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+.format-chat .entry-title:before {
+	content: '\f108';
+}
+
+/* link post */
+.format-link .entry-title a {
+	display: block;
+	padding: 15px;
+	background: #65b045;
+	color: #fff;
+}
+
+.format-link .entry-title a:hover:after {
+	content: '\f442';
+	margin-left: 10px;
+	-webkit-font-smoothing: antialiased;
+	font: normal 2rem/1 'Genericons';
+	vertical-align: middle;
+}
+
+/* quote format */
+.format-quote .entry-content {
+	position: relative;
+}
+
+/* chat post */
+.format-chat .entry-content .chat-row .fn {
+	font-weight: bold;
+}
+
+/* status post */
+.format-status .entry-content .avatar {
+	float: left;
+	margin: 0 10px 10px 0;
+	border-radius: 100%;
+	border: 5px solid #65b045;
 }
 
 /*--------------------------------------------------------------
@@ -1047,6 +1087,9 @@ a:active {
 	width: 50%;
 	font-size: 1.6rem
 }
+.comment-form .form-allowed-tags {
+	font-size: 14px;
+}
 
 /*--------------------------------------------------------------
 5.0 Widgets
@@ -1067,18 +1110,16 @@ a:active {
 
 .widget {
 	margin: 0 0 3rem;
+	font-size: 15rem;
+	font-size: 1.5rem;
 }
 
 .widget-title {
 	margin: 0 0 1rem;
 	padding: 0 0 0.5rem;
 	font-size: 2rem;
-	color: #65b045;
+	color: #252525;
 	border-bottom: 1px solid #eee;
-}
-.widget-content {
-	font-size: 15rem;
-	font-size: 1.5rem;
 }
 
 .widget select {
@@ -1136,25 +1177,28 @@ a:active {
 .site-footer a {
 	color: #fff;
 }
-.menu-social-container, .site-info {
+.social-menu, .site-info {
 	width: 78%;
 	margin: 0 auto;
+}
+.site-footer .powered {
+	font-size: 14px;
 }
 
 /*--------------------------------------------------------------
 6.1 Social Menu
 --------------------------------------------------------------*/
-.menu-social-container ul {
+.social-menu ul {
 	margin: 0 0 4rem;
 	padding: 1rem 0;
 	list-style-type: none;
 	border-top: 1px solid rgba(255,255,255,0.2);
 	border-bottom: 1px solid rgba(255,255,255,0.2);
 }
-.menu-social-container li {
+.social-menu li {
 	display: inline-block;
 }
-.menu-social-container li a {
+.social-menu li a {
 	display: block;
 	width: 4rem;
 	height: 4rem;
@@ -1165,83 +1209,83 @@ a:active {
 	border: none;
 	opacity: 0.7;
 }
-.menu-social-container li a:hover {
+.social-menu li a:hover {
 	opacity: 1;
 }
-.menu-social-container li a:before {
+.social-menu li a:before {
 	display: inline-block;
 	-webkit-font-smoothing: antialiased;
 	font: normal 2.8rem/1 'Genericons';
 	vertical-align: middle;
 }
-.menu-social-container li a[href*="facebook.com"]::before {
+.social-menu li a[href*="facebook.com"]::before {
 	content: '\f204';
 	color: #3b5998;
 }
-.menu-social-container li a[href*="twitter.com"]::before {
+.social-menu li a[href*="twitter.com"]::before {
 	content: '\f202';
 	color: #55acee;
 }
-.menu-social-container li a[href*="plus.google.com"]::before {
+.social-menu li a[href*="plus.google.com"]::before {
 	content: '\f218';
 	color: #dd4b39;
 }
-.menu-social-container li a[href*="linkedin.com"]::before {
+.social-menu li a[href*="linkedin.com"]::before {
 	content: '\f207';
 	color: #0e76a8;
 }
-.menu-social-container li a[href*="github.com"]::before {
+.social-menu li a[href*="github.com"]::before {
 	content: '\f200';
 	color: #171515;
 }
-.menu-social-container li a[href*="dribbble.com"]::before {
+.social-menu li a[href*="dribbble.com"]::before {
 	content: '\f201';
 	color: #ea4c89;
 }
-.menu-social-container li a[href*="tumblr.com"]::before {
+.social-menu li a[href*="tumblr.com"]::before {
 	content: '\f214';
 	color: #34526f;
 }
-.menu-social-container li a[href*="flickr.com"]::before {
+.social-menu li a[href*="flickr.com"]::before {
 	content: '\f211';
 	color: #ff0084;
 }
-.menu-social-container li a[href*="vimeo.com"]::before {
+.social-menu li a[href*="vimeo.com"]::before {
 	content: '\f212';
 	color: #44bbff;
 }
-.menu-social-container li a[href*="youtube.com"]::before {
+.social-menu li a[href*="youtube.com"]::before {
 	content: '\f213';
 	color: #c4302b;
 }
-.menu-social-container li a[href*="instagram.com"]::before {
+.social-menu li a[href*="instagram.com"]::before {
 	content: '\f215';
 	color: #3f729b;
 }
-.menu-social-container li a[href*="pinterest.com"]::before {
+.social-menu li a[href*="pinterest.com"]::before {
 	content: '\f209';
 	color: #c8232c;
 }
-.menu-social-container li a[href*="reddit.com"]::before {
+.social-menu li a[href*="reddit.com"]::before {
 	content: '\f222';
 	color: #ff4500;
 }
-.menu-social-container li a[href*="stumbleupon.com"]::before {
+.social-menu li a[href*="stumbleupon.com"]::before {
 	content: '\f223';
 	color: #f74425;
 }
 
 /* custom style for custom menu widget */
-.widget .menu-social-container li {
+.widget .social-menu li {
 	display: block;
 }
-.widget .menu-social-container li a {
+.widget .social-menu li a {
 	width: 100%;
 	height: auto;
 	margin: 0;
 	line-height: 0;
 }
-.widget .menu-social-container li a::before {
+.widget .social-menu li a::before {
 	margin-right: 1rem;
 }
 
@@ -1294,15 +1338,109 @@ object {
 }
 
 /*--------------------------------------------------------------
-8.0 Genericons
+8.0 Mobile Menu
+--------------------------------------------------------------*/
+/* Mobile Menu Core Style */
+.slicknav_btn { position: relative; display: block; vertical-align: middle; line-height: 1.125em; cursor: pointer; }
+.slicknav_menu .slicknav_icon { display: none; }
+.slicknav_nav { clear: both }
+.slicknav_nav ul,
+.slicknav_nav li { display: block }
+.slicknav_nav .slicknav_arrow { font-size: 0.8em; margin: 0 0 0 0.4em; }
+.slicknav_nav .slicknav_item { cursor: pointer; }
+.slicknav_nav .slicknav_row { display: block; }
+.slicknav_nav a { display: block }
+.slicknav_nav .slicknav_item a,
+.slicknav_nav .slicknav_parent-link a { display: inline }
+.slicknav_menu:before,
+.slicknav_menu:after { content: " "; display: table; }
+.slicknav_menu:after { clear: both }
+/* IE6/7 support */
+.slicknav_menu { *zoom: 1 }
+
+.slicknav_menu {
+	font-size:16px;
+}
+.slicknav_btn {
+	padding: 10px;
+	border: none;
+	text-decoration:none;
+	text-align: center;
+}
+.slicknav_menu  .slicknav_menutxt {
+	color: #333;
+}
+.slicknav_menu .slicknav_menutxt:before {
+	content: '\f419';
+	display: inline-block;
+	margin-right: 5px;
+	-webkit-font-smoothing: antialiased;
+	font-family: 'Genericons';
+	vertical-align: top;
+}
+.slicknav_menu {
+	background:#fff;
+}
+.slicknav_nav {
+	margin:0;
+	padding:0;
+	font-size:0.875em;
+}
+.slicknav_nav, .slicknav_nav ul {
+	list-style: none;
+	overflow:hidden;
+}
+.slicknav_nav ul {
+	padding:0 0 0 30px;
+	margin:0;
+	background: #f5f5f5;
+}
+.slicknav_nav .slicknav_row,
+.slicknav_nav a{
+	padding:8px 10px;
+	border: none;
+	text-decoration:none;
+	color:#333;
+}
+.slicknav_nav .slicknav_row {
+	border-top: 1px solid #eee;
+}
+.slicknav_nav ul a,
+.slicknav_nav a:hover{
+	background: #f5f5f5;
+}
+.slicknav_nav .slicknav_txtnode {
+	 margin-left:15px;   
+}
+
+.slicknav_menu {
+	display:none;
+}
+
+@media screen and (max-width: 40em) {
+	.main-navigation {
+		padding: 0;
+	}
+	
+	.main-navigation .menu {
+		display:none;
+	}
+	
+	.slicknav_menu {
+		display:block;
+	}
+}
+
+/*--------------------------------------------------------------
+9.0 Genericons
 --------------------------------------------------------------*/
 @font-face {
-    font-family: 'Genericons';
-    src: url('fonts/genericons-regular-webfont.eot');
-    src: url('fonts/genericons-regular-webfont.eot?#iefix') format('embedded-opentype'),
-         url('fonts/genericons-regular-webfont.woff') format('woff'),
-         url('fonts/genericons-regular-webfont.ttf') format('truetype'),
-         url('fonts/genericons-regular-webfont.svg#genericonsregular') format('svg');
-    font-weight: normal;
-    font-style: normal;
+	font-family: 'Genericons';
+	src: url('fonts/genericons-regular-webfont.eot');
+	src: url('fonts/genericons-regular-webfont.eot?#iefix') format('embedded-opentype'),
+		 url('fonts/genericons-regular-webfont.woff') format('woff'),
+		 url('fonts/genericons-regular-webfont.ttf') format('truetype'),
+		 url('fonts/genericons-regular-webfont.svg#genericonsregular') format('svg');
+	font-weight: normal;
+	font-style: normal;
 }

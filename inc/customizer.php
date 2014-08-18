@@ -5,25 +5,158 @@
  * @package Padhang
  */
 
+// require the display functions to output the customized options
+require_once get_template_directory() . '/inc/customizer-display.php';
+
 /**
  * Add new controls and postMessage support for the Theme Customizer.
  *
  * @param WP_Customize_Manager $wp_customize Theme Customizer object.
  */
 function padhang_customize_register( $wp_customize ) {
-	// Register textarea control
-	class Padhang_Textarea_Control extends WP_Customize_Control {
-		public $type = 'textarea';
-		
-		public function render_content() {
-			?>
-			<label>
-				<span class="customize-control-title"><?php echo esc_html( $this->label ); ?></span>
-				<textarea rows="5" style="width:100%;" <?php $this->link(); ?>><?php echo esc_textarea( $this->value() ); ?></textarea>
-			</label>
-			<?php 
-		}
-	}
+	// require cusom customizer controls
+	require_once get_template_directory() . '/inc/customizer-controls.php';
+
+	// Rename Background Image section to Background
+	$wp_customize->get_section( 'background_image' )->title = __( 'Background', 'padhang' );
+
+	// Move Background Color to Background section
+	$wp_customize->get_control( 'background_color' )->section = 'background_image';
+
+	/**
+	 * General section
+	 */
+	$wp_customize->add_section( 'padhang_general_section' , array(
+		'title'    => __( 'General', 'padhang' ),
+		'priority' => 10,
+	) );
+
+	$wp_customize->add_setting(	'fonts_kit', array(
+		'default' => 'roboto',
+		'sanitize_callback' => 'padhang_sanitize_fontskit',
+	) );
+
+	$wp_customize->add_control( 'fonts_kit', array(
+		'label'    => __( 'Fonts Kit', 'padhang' ),
+		'section'  => 'padhang_general_section',
+		'settings' => 'fonts_kit',
+		'type'     => 'select',
+		'choices'  => array(
+				'roboto'   => 'Roboto + Roboto Slab',
+				'opensans' => 'Open Sans + Bitter'
+			)
+	) );
+
+	$wp_customize->add_setting( 'wrapper_width', array(
+		'default' => '96',
+		'sanitize_callback' => 'padhang_wrapper_width_sanitize',
+	) );
+
+	$wp_customize->add_control( 'wrapper_width', array(
+		'label'    => __('Wrapper width (%)', 'padhang'),
+		'section'  => 'padhang_general_section',
+		'settings' => 'wrapper_width',
+		'type'     => 'text'
+	) );
+
+	$wp_customize->add_setting( 'footer_text', array(
+		'default' => '&copy; 2014 <a href="' . esc_url( home_url( '/' ) ) . '">' . bloginfo( 'name' ) . '</a>',
+		'sanitize_callback' => 'wp_kses_data',
+	) );
+
+	$wp_customize->add_control( new Padhang_Customize_Textarea_Control( $wp_customize, 'footer_text', array(
+		'label'   	=> __('Footer text', 'padhang'),
+		'section' 	=> 'padhang_general_section',
+		'settings'	=> 'footer_text',
+	) ) );
+
+	/**
+	 * Title and Tagline section
+	 */
+	$wp_customize->add_control( new Padhang_Customize_Misc_Control( $wp_customize, 'options_heading', array(
+		'section'  => 'title_tagline',
+		'type'     => 'heading',
+		'label'    => __( 'Title and Tagline Options', 'padhang' ),
+	) ) );
+
+	$wp_customize->add_setting(	'show_hide_title', array(
+			'default'           => 1,
+			'sanitize_callback' => 'absint',
+	) );
+	
+	$wp_customize->add_control( 'show_hide_title', array(
+		'label'    => __( 'Show site title', 'padhang' ),
+		'section'  => 'title_tagline',
+		'settings' => 'show_hide_title',
+		'type'     => 'checkbox',
+	) );
+
+	$wp_customize->add_setting(	'show_hide_tagline', array(
+			'default'           => 1,
+			'sanitize_callback' => 'absint',
+	) );
+
+	$wp_customize->add_control( 'show_hide_tagline', array(
+		'label'    => __( 'Show site tagline', 'padhang' ),
+		'section'  => 'title_tagline',
+		'settings' => 'show_hide_tagline',
+		'type'     => 'checkbox',
+	) );
+
+	/**
+	 * Logo section
+	 */
+	$wp_customize->add_section( 'padhang_logo_section' , array(
+		'title'    => __( 'Logo', 'padhang' ),
+		'priority' => 30,
+	) );
+
+	$wp_customize->add_setting( 'logo_image', array(
+		'default' => '',
+		'sanitize_callback' => 'esc_url_raw',
+	) );
+
+	$wp_customize->add_control( new Padhang_Customize_Image_Control( $wp_customize, 'logo_image', array(
+		'label'    => __( 'Logo', 'padhang' ),
+		'section'  => 'padhang_logo_section',
+		'settings' => 'logo_image',
+		'context'  => 'padhang-logo-image',
+	) ) );
+
+	$wp_customize->add_setting( 'favicon_image', array(
+		'default' => '',
+		'sanitize_callback' => 'esc_url_raw',
+	) );
+
+	$wp_customize->add_control( new Padhang_Customize_Image_Control( $wp_customize, 'favicon_image', array(
+		'label'    => __( 'Favicon', 'padhang' ),
+		'section'  => 'padhang_logo_section',
+		'settings' => 'favicon_image',
+		'context'  => 'padhang-favicon-image',
+	) ) );
+
+	/**
+	 * Colors section
+	 */
+	$wp_customize->add_setting( 'site_title_color', array(
+		'default' => '#ffffff',
+	) );
+
+	$wp_customize->add_control( new WP_Customize_Color_Control( $wp_customize, 'site_title_color', array(
+		'label'   	=> __('Title Color', 'padhang' ),
+		'section' 	=> 'colors',
+		'settings'  => 'site_title_color',
+	) ) );
+
+	$wp_customize->add_setting( 'site_tagline_color', array(
+		'default' => '#ffffff',
+	) );
+
+	$wp_customize->add_control( new WP_Customize_Color_Control( $wp_customize, 'site_tagline_color', array(
+		'label'   	=> __('Tagline Color', 'padhang' ),
+		'section' 	=> 'colors',
+		'settings'  => 'site_tagline_color',
+	) ) );
 
 	$wp_customize->add_setting( 'accent_color', array(
 		'default' => '#65b045',
@@ -35,53 +168,51 @@ function padhang_customize_register( $wp_customize ) {
 		'settings'  => 'accent_color',
 	) ) );
 
-	$wp_customize->add_setting( 'background_transparency', array(
+	$wp_customize->add_setting( 'overlay_color', array(
+		'default' => '#222222',
+	) );
+
+	$wp_customize->add_control( new WP_Customize_Color_Control( $wp_customize, 'overlay_color', array(
+		'label'   	=> __('Overlay Color (%)', 'padhang' ),
+		'section' 	=> 'colors',
+		'settings'  => 'overlay_color',
+	) ) );
+
+	$wp_customize->add_setting( 'overlay_transparency', array(
 		'default' => '70',
 		'sanitize_callback' => 'padhang_transparency_sanitize',
 	) );
 
-	$wp_customize->add_control( 'background_transparency', array(
-		'label'   	=> __('Background Transparency', 'padhang'),
+	$wp_customize->add_control( 'overlay_transparency', array(
+		'label'   	=> __('Overlay Transparency', 'padhang'),
 		'section' 	=> 'colors',
-		'settings'	=> 'background_transparency',
+		'settings'	=> 'overlay_transparency',
 		'type'    	=> 'text'
 	) );
 
-	$wp_customize->add_section( 'padhang_extra_section' , array(
-		'title'      => __( 'Padhang Extras', 'padhang' ),
-		'priority'   => 120,
-	) );
-
-	$wp_customize->add_setting( 'wrapper_width', array(
-		'default' => '96',
-		'sanitize_callback' => 'padhang_wrapper_width_sanitize',
-	) );
-
-	$wp_customize->add_control( 'wrapper_width', array(
-		'label'   	=> __('Wrapper width (%)', 'padhang'),
-		'section' 	=> 'padhang_extra_section',
-		'settings'	=> 'wrapper_width',
-		'type'    	=> 'text'
-	) );
-
-	$wp_customize->add_setting( 'footer_text', array(
-		'default' => '',
-		'sanitize_callback' => 'wp_kses_data',
-	) );
-
-	$wp_customize->add_control( new Padhang_Textarea_Control( $wp_customize, 'footer_text', array(
-		'label'   	=> __('Footer text', 'padhang'),
-		'section' 	=> 'padhang_extra_section',
-		'settings'	=> 'footer_text',
+	$wp_customize->add_control( new Padhang_Customize_Misc_Control( $wp_customize, 'overlay_transparency_description', array(
+		'section'  => 'colors',
+		'type'     => 'text',
+		'description'    => __( 'Set 0 to disable overlay.', 'padhang' ),
 	) ) );
+
+	/**
+	 * Background section
+	 */
+	$wp_customize->add_setting(	'background_cover', array(
+			'default'           => 0,
+			'sanitize_callback' => 'absint',
+	) );
+
+	$wp_customize->add_control( 'background_cover', array(
+		'label'    => __( 'Make background image covering the page', 'padhang' ),
+		'section'  => 'background_image',
+		'settings' => 'background_cover',
+		'type'     => 'checkbox',
+	) );
 
 	$wp_customize->get_setting( 'blogname' )->transport         = 'postMessage';
 	$wp_customize->get_setting( 'blogdescription' )->transport  = 'postMessage';
-	$wp_customize->get_setting( 'header_textcolor' )->transport = 'postMessage';
-	$wp_customize->get_setting( 'accent_color' )->transport 	= 'postMessage';
-	$wp_customize->get_setting( 'background_transparency' )->transport 	= 'postMessage';
-	$wp_customize->get_setting( 'wrapper_width' )->transport 	= 'postMessage';
-	$wp_customize->get_setting( 'footer_text' )->transport 		= 'postMessage';
 }
 add_action( 'customize_register', 'padhang_customize_register' );
 
@@ -120,37 +251,15 @@ function padhang_wrapper_width_sanitize( $input ) {
 }
 
 /**
- * Output the customized style to the front.
+ * Sanitize the fonts kit
  */
-function padhang_customize_style() {
-	$wrapper_width = absint( get_theme_mod( 'wrapper_width', '96' ) );
-	$color = esc_attr( get_theme_mod( 'accent_color', '#65b045' ) );
-	?>
-	<!-- Custom style -->
-	<style type="text/css">
-		.site-header, .site-content, .site-footer {
-			width: <?php echo $wrapper_width; ?>%;
-		}
-		a, .main-navigation ul a:hover, .entry-title a:hover, .widget-title {
-			color: <?php echo $color; ?>;
-		}
-		button, input[type="button"], input[type="reset"], input[type="submit"], .main-navigation ul ul, .comment-navigation a:hover, .paging-navigation a:hover, .post-navigation a:hover, .sticky .entry-title:before, .format-link .entry-title:before, .format-video .entry-title:before, .format-audio .entry-title:before, .format-image .entry-title:before, .format-gallery .entry-title:before {
-			background: <?php echo $color; ?>;
-		}
-		a:hover, a:focus, a:active, .comment-navigation a:hover, .paging-navigation a:hover, .post-navigation a:hover {
-			border-color: <?php echo $color; ?>;
-		}
-	</style>
-	<?php	
-}
-add_action( 'wp_head', 'padhang_customize_style' );
+function padhang_sanitize_fontskit( $value ) {
+	$choices         = array( 'roboto', 'opensans' );
+	$allowed_choices = array_keys( $choices );
 
-/**
- * Output custom footer text if user fill it.
- */
-function padhang_footer_text() {
-	$footer_text = get_theme_mod( 'footer_text' );
+	if ( ! in_array( $value, $allowed_choices ) ) {
+		$value = 'roboto';
+	}
 
-	echo '<p>' . wp_kses_data( $footer_text ) . '</p>';
+	return $value;
 }
-add_action( 'padhang_footer', 'padhang_footer_text' );

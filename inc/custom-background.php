@@ -27,9 +27,8 @@ if ( ! function_exists( 'padhang_background_style' ) ) :
  * @see padhang_custom_background_setup().
  */
 function padhang_background_style() {
-	$background 	= get_background_image();
-	$color 			= get_background_color();
-	$transparency 	= absint( get_theme_mod( 'background_transparency', '70' ) );
+	$background = get_background_image();
+	$color      = get_background_color();
 
 	if ( ! $background && ! $color )
 		return;
@@ -61,10 +60,6 @@ function padhang_background_style() {
 	<style type="text/css">
 		body.custom-background { 
 			<?php echo trim( $style ); ?>
-		}
-		.overlay {
-			background: #<?php echo $color; ?>;
-			opacity: <?php echo $transparency/100; ?>;
 		}
 	</style>
 	<?php

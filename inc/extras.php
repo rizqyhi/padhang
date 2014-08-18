@@ -131,29 +131,29 @@ function padhang_comment( $comment, $args, $depth ) {
 			</div><!-- .comment-avatar -->
 			
 			<footer class="comment-meta">
-                <div class="comment-author vcard">
-                    <?php 
-                    	printf( '<b class="fn">%1$s</b> %2$s',
+				<div class="comment-author vcard">
+					<?php 
+						printf( '<b class="fn">%1$s</b> %2$s',
 							get_comment_author_link(),
 							( $comment->user_id === $post->post_author ) ? '<span>' . __( 'Post author', 'padhang' ) . '</span>' : ''
 						);
-                    ?>
-                </div><!-- .comment-author -->
+					?>
+				</div><!-- .comment-author -->
 
-                <div class="comment-metadata">
-                    <a href="<?php echo esc_url( get_comment_link( $comment->comment_ID ) ); ?>" title="<?php printf( _x( '%1$s at %2$s', '1: date, 2: time', 'padhang' ), get_comment_date(), get_comment_time() ); ?>">
-                            <time datetime="<?php comment_time( 'c' ); ?>">
-                            	<?php comment_date(); ?>
-                            </time>
-                    </a>
-                    <span class="sep">&middot;</span>
-                    <?php edit_comment_link( __( 'Edit', 'padhang' ), '<span class="edit-link">', '</span>' ); ?>
-                </div><!-- .comment-metadata -->
+				<div class="comment-metadata">
+					<a href="<?php echo esc_url( get_comment_link( $comment->comment_ID ) ); ?>" title="<?php printf( _x( '%1$s at %2$s', '1: date, 2: time', 'padhang' ), get_comment_date(), get_comment_time() ); ?>">
+							<time datetime="<?php comment_time( 'c' ); ?>">
+								<?php comment_date(); ?>
+							</time>
+					</a>
+					<span class="sep">&middot;</span>
+					<?php edit_comment_link( __( 'Edit', 'padhang' ), '<span class="edit-link">', '</span>' ); ?>
+				</div><!-- .comment-metadata -->
 
-                <?php if ( '0' == $comment->comment_approved ) : ?>
-                	<p class="comment-awaiting-moderation"><?php _e( 'Your comment is awaiting moderation.', 'padhang' ); ?></p>
-                <?php endif; ?>
-        	</footer><!-- .comment-meta -->
+				<?php if ( '0' == $comment->comment_approved ) : ?>
+					<p class="comment-awaiting-moderation"><?php _e( 'Your comment is awaiting moderation.', 'padhang' ); ?></p>
+				<?php endif; ?>
+			</footer><!-- .comment-meta -->
 
 			<div class="comment-content">
 				<?php comment_text(); ?>
@@ -168,3 +168,77 @@ function padhang_comment( $comment, $args, $depth ) {
 	endswitch; // end comment_type check
 }
 endif;
+
+/**
+ * Get the URL for Google Webfonts with support for language character.
+ * see: http://themeshaper.com/2014/08/13/how-to-add-google-fonts-to-wordpress-themes/
+ * 
+ * @return string The fonts URL.
+ */
+function padhang_fonts_url() {
+	$fonts_kit = get_theme_mod( 'fonts_kit', 'roboto' );
+	$fonts_url = '';
+	$font_families = array();
+
+	/* Translators: If there are characters in your language that are not
+	* supported by Roboto or Roboto Slab, translate this to 'off'. Do not translate
+	* into your own language.
+	*/
+	$roboto = _x( 'on', 'Roboto font: on or off', 'padhang' );
+	$roboto_slab = _x( 'on', 'Roboto Slab font: on or off', 'padhang' );
+
+	/* Translators: If there are characters in your language that are not
+	* supported by Open Sans or Bitter, translate this to 'off'. Do not translate
+	* into your own language.
+	*/
+	$opensans = _x( 'on', 'Open Sans font: on or off', 'padhang' );
+	$bitter = _x( 'on', 'Bitter font: on or off', 'padhang' );
+	
+	switch ( $fonts_kit ) {
+		case 'opensans' :
+			if ( 'off' !== $opensans || 'off' !== $bitter ) {
+				if ( 'off' !== $opensans ) {
+					$font_families[] = 'Open Sans:400,400italic,700,700italic';
+				}
+
+				if ( 'off' !== $bitter ) {
+					$font_families[] = 'Bitter:400italic,700';
+				}
+			}
+			break;
+
+		default:
+			if ( 'off' !== $roboto || 'off' !== $roboto_slab ) {
+				if ( 'off' !== $roboto ) {
+					$font_families[] = 'Roboto:400,400italic,700,700italic';
+				}
+
+				if ( 'off' !== $roboto_slab ) {
+					$font_families[] = 'Roboto Slab:300,700';
+				}
+			}
+	}
+
+	$query_args = array(
+		'family' => urlencode( implode( '|', $font_families ) ),
+		'subset' => urlencode( 'latin,latin-ext' ),
+	);
+
+	$fonts_url = add_query_arg( $query_args, '//fonts.googleapis.com/css' );
+
+	return $fonts_url;
+}
+
+/**
+ * Give author avatar for status format post
+ */
+function padhang_status_post( $content ) {
+	if( has_post_format( 'status' ) ) {
+		$avatar = get_avatar( get_the_author_meta( 'ID' ), 64, '', get_the_author_meta( 'display_name' ) );
+
+		return $avatar . $content;
+	}
+
+	return $content;
+}
+add_filter( 'the_content', 'padhang_status_post', 10, 1 );
